@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>panda_rt_tools</name>
+  <version>0.1.0</version>
+  <description>
+    Real-time control tools for the Franka Emika Panda robot using libfranka.
+    Provides low-speed joint movement, reset-to-home, state readout, and a
+    real-time loop diagnostic.
+  </description>
+  <maintainer email="jia@example.com">jia</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>libfranka</build_depend>
+  <build_depend>roscpp</build_depend>
+
+  <exec_depend>libfranka</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+
+  <export>
+    <!-- The executables need libfranka at runtime via LD_LIBRARY_PATH. -->
+  </export>
+</package>

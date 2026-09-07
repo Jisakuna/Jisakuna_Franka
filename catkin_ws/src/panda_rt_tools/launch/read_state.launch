@@ -1,0 +1,7 @@
+<launch>
+  <arg name="robot_ip" default="192.168.1.2"/>
+
+  <!-- Read and print the current robot state (safe, no motion). -->
+  <node name="panda_read_state" pkg="panda_rt_tools" type="read_state"
+        output="screen" args="$(arg robot_ip)"/>
+</launch>

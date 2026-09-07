@@ -1,0 +1,11 @@
+<launch>
+  <arg name="robot_ip" default="192.168.1.2"/>
+  <arg name="joint" default="0"/>
+  <arg name="angle_deg" default="5.0"/>
+  <arg name="speed_deg_s" default="8.0"/>
+
+  <!-- Slowly move joint <joint> by angle_deg degrees at speed_deg_s deg/s. -->
+  <node name="panda_slow_move" pkg="panda_rt_tools" type="slow_move"
+        output="screen"
+        args="$(arg robot_ip) $(arg joint) $(arg angle_deg) $(arg speed_deg_s)"/>
+</launch>

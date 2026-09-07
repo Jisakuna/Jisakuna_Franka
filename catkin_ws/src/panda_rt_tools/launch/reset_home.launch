@@ -1,0 +1,8 @@
+<launch>
+  <arg name="robot_ip" default="192.168.1.2"/>
+  <arg name="speed_deg_s" default="8.0"/>
+
+  <!-- Move all joints back to the standard Panda home pose. -->
+  <node name="panda_reset_home" pkg="panda_rt_tools" type="reset_home"
+        output="screen" args="$(arg robot_ip) $(arg speed_deg_s)"/>
+</launch>

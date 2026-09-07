@@ -1,0 +1,24 @@
+# Local catkin products and machine-specific setup
+catkin_ws/build/
+catkin_ws/devel/
+catkin_ws/install/
+catkin_ws/log/
+catkin_ws/logs/
+catkin_ws/.catkin_tools/
+catkin_ws/src/CMakeLists.txt
+
+# Dependency archives are distributed as GitHub Release assets
+/*.zip
+/dependencies/
+/.venv/
+
+# Python caches, editor files and local secrets
+__pycache__/
+*.py[cod]
+.vscode/
+.idea/
+*.swp
+.DS_Store
+.env
+.env.*
+!.env.example

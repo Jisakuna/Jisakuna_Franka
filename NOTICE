@@ -1,0 +1,9 @@
+FRANKA_INSTALL
+Copyright 2026 Jisakuna
+
+Original project code, configuration and documentation are licensed under
+the Apache License, Version 2.0. See LICENSE.
+
+This project references franka_ros and distributes original dependency
+archives. Third-party copyrights, licenses and notices remain with their
+respective owners. See THIRD_PARTY_NOTICES.md and the upstream notices.

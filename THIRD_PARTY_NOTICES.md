@@ -15,6 +15,6 @@ The panda-python wheel metadata identifies **Jean Elsner** as the author.
 These attributions do not transfer ownership of third-party material.
 
 The original dependency archives are distributed unchanged through the
-`installation-assets-v1` GitHub Release. SHA-256 values are recorded in
+`v1.0.0` GitHub Release. SHA-256 values are recorded in
 `SHA256SUMS`. The libfranka ZIP has an empty `common/` submodule directory;
 use the recursive clone instructions in the root README when building it.

@@ -58,7 +58,7 @@ This project uses **ROS 1 catkin** and cannot be built directly as a ROS 2 Jazzy
 
 ## Get the project and installation archives
 
-This is a private repository. Authenticate with a GitHub account that has access.
+This repository is public. You can clone it and download release assets without GitHub authentication.
 
 ```bash
 git clone --recurse-submodules https://github.com/Jisakuna/Jisakuna_Franka.git

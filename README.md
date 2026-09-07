@@ -1,4 +1,4 @@
-# FRANKA_INSTALL
+# Jisakuna_Franka
 
 **English** | [简体中文](README.zh-CN.md)
 
@@ -18,7 +18,7 @@ The first project release is **v1.0.0**. Individual ROS packages and dependencie
 | `panda-python` | 0.8.1 + libfranka 0.9.2; Linux x86_64 Python wheel archive |
 
 ```text
-FRANKA_INSTALL/
+Jisakuna_Franka/
 ├── README.md                     # English (default)
 ├── README.zh-CN.md               # Simplified Chinese
 ├── LICENSE                       # Apache License 2.0
@@ -61,14 +61,14 @@ This project uses **ROS 1 catkin** and cannot be built directly as a ROS 2 Jazzy
 This is a private repository. Authenticate with a GitHub account that has access.
 
 ```bash
-git clone --recurse-submodules https://github.com/Jisakuna/FRANKA_INSTALL.git
-cd FRANKA_INSTALL
+git clone --recurse-submodules https://github.com/Jisakuna/Jisakuna_Franka.git
+cd Jisakuna_Franka
 
 # If you already cloned without submodules:
 git submodule update --init --recursive
 ```
 
-Download the following files from the [v1.0.0 release](https://github.com/Jisakuna/FRANKA_INSTALL/releases/tag/v1.0.0) and place them in the repository root:
+Download the following files from the [v1.0.0 release](https://github.com/Jisakuna/Jisakuna_Franka/releases/tag/v1.0.0) and place them in the repository root:
 
 | File | Purpose |
 | --- | --- |
@@ -98,7 +98,7 @@ sudo apt install build-essential cmake git libeigen3-dev libpoco-dev \
 Skip this step if libfranka 0.9.2 is already installed and discoverable by CMake. Avoid mixing different installed versions of the library.
 
 ```bash
-# Run from the FRANKA_INSTALL repository root.
+# Run from the Jisakuna_Franka repository root.
 mkdir -p dependencies
 git clone --branch 0.9.2 --recurse-submodules \
   https://github.com/frankarobotics/libfranka.git dependencies/libfranka

@@ -1,4 +1,4 @@
-# FRANKA_INSTALL
+# Jisakuna_Franka
 
 [English](README.md) | **简体中文**
 
@@ -18,7 +18,7 @@
 | `panda-python` | 0.8.1 + libfranka 0.9.2，Linux x86_64 Python wheel 归档 |
 
 ```text
-FRANKA_INSTALL/
+Jisakuna_Franka/
 ├── README.md                     # English (default)
 ├── README.zh-CN.md               # 简体中文
 ├── LICENSE                       # Apache License 2.0
@@ -61,14 +61,14 @@ FRANKA_INSTALL/
 此仓库为私有仓库，需要使用有访问权限的 GitHub 账号认证。
 
 ```bash
-git clone --recurse-submodules https://github.com/Jisakuna/FRANKA_INSTALL.git
-cd FRANKA_INSTALL
+git clone --recurse-submodules https://github.com/Jisakuna/Jisakuna_Franka.git
+cd Jisakuna_Franka
 
 # 已经普通克隆过时，补全子模块
 git submodule update --init --recursive
 ```
 
-在 [v1.0.0 Release](https://github.com/Jisakuna/FRANKA_INSTALL/releases/tag/v1.0.0) 下载以下文件，放在仓库根目录：
+在 [v1.0.0 Release](https://github.com/Jisakuna/Jisakuna_Franka/releases/tag/v1.0.0) 下载以下文件，放在仓库根目录：
 
 | 文件 | 用途 |
 | --- | --- |
@@ -98,7 +98,7 @@ sudo apt install build-essential cmake git libeigen3-dev libpoco-dev \
 若已安装可被 CMake 找到的 libfranka 0.9.2，可跳过这一步。避免同时混用不同版本的系统库。
 
 ```bash
-# 在 FRANKA_INSTALL 根目录执行
+# 在 Jisakuna_Franka 根目录执行
 mkdir -p dependencies
 git clone --branch 0.9.2 --recurse-submodules \
   https://github.com/frankarobotics/libfranka.git dependencies/libfranka

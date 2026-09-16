@@ -58,8 +58,6 @@ Jisakuna_Franka/
 
 ## 获取项目和安装归档
 
-此仓库为公开仓库，无需 GitHub 账号认证即可克隆代码和下载 Release 附件。
-
 ```bash
 git clone --recurse-submodules https://github.com/Jisakuna/Jisakuna_Franka.git
 cd Jisakuna_Franka

@@ -2,18 +2,11 @@
 
 [English](README.md) | **简体中文**
 
-> 环境归档说明：以下硬件、网络、用户及系统配置描述的是原开发主机，
-> 并非安装脚本或本次发布重新验证的结果。新机器的获取和构建步骤见
-> [仓库 README](../../../README.zh-CN.md)。关节索引为 0–6。
->
-> 当前 `rt_loop_test` 未实现预期的自动退出；零附加力矩不保证保持姿态。
-> 使用运动、恢复或诊断工具前，请阅读根目录 README 的“实时配置与当前限制”。
-
 Real-time control utilities for the **Franka Emika Panda** using `libfranka 0.9.2`.
 
-## 1. Hardware (硬件平台)
+## 1. 硬件平台
 
-本包在以下控制主机上开发并验证：
+本包已经在以下控制主机上验证：
 
 | 部件 | 型号 |
 |------|------|
@@ -23,12 +16,10 @@ Real-time control utilities for the **Franka Emika Panda** using `libfranka 0.9.
 | 系统盘 | WD Blue SN550 1TB (NVMe) |
 | GPU | 2 × NVIDIA GeForce RTX 2080 Ti (TU102, 11 GB) |
 | FCI 网卡 | Intel I210 Gigabit (PCIe, `enp4s0`) |
-| 板载网卡 | Intel I219-LM (未用于 FCI) |
-| 无线 | USB 无线网卡 `wlx90de806bb0f6`（日常上网，与 FCI 隔离） |
 
 > FCI 控制流量走独立网卡 `enp4s0`（Intel I210），与无线/板载网卡物理隔离，避免干扰实时通信。
 
-## 2. Software Environment (软件运行环境)
+## 2. 软件运行环境
 
 | 组件 | 版本/配置 |
 |------|-----------|
@@ -49,11 +40,11 @@ cat /sys/kernel/realtime  # 1
 ```
 
 - 从源码构建：`linux-5.15.92` + `patch-5.15.92-rt57`，`CONFIG_PREEMPT_RT=y`。
-- 构建产物：`linux-image-5.15.92-rt57` / `linux-headers-5.15.92-rt57`（dpkg 安装）。
+- 构建产物：`linux-image-5.15.92-rt57` / `linux-headers-5.15.92-rt57`
 
-### 2.2 实时权限（用户与 limits）
+### 2.2 实时权限
 
-用户 `jia` 属于 `realtime` 组，`/etc/security/limits.conf` 已配置：
+`/etc/security/limits.conf` 配置：
 
 ```text
 @realtime soft rtprio 99
@@ -66,7 +57,7 @@ cat /sys/kernel/realtime  # 1
 
 验证：`ulimit -r` 应输出 `99`（若为 0，注销重新登录）。
 
-### 2.3 FCI 网络配置（NetworkManager `robot-link`）
+### 2.3 FCI 网络配置
 
 | 项 | 值 |
 |----|-----|
@@ -74,10 +65,10 @@ cat /sys/kernel/realtime  # 1
 | IP | `192.168.1.1/24`（静态） |
 | 机器人 IP | `192.168.1.2`（Desk 默认） |
 | MTU | 1500 |
-| IPv6 | 关闭（ignore） |
+| IPv6 | 关闭 |
 | TX 队列 | 10000（udev `70-fci-net.rules`） |
 
-### 2.4 实时优化（已持久化）
+### 2.4 实时优化
 
 | 优化 | 配置位置 |
 |------|----------|
@@ -87,7 +78,7 @@ cat /sys/kernel/realtime  # 1
 | FCI 中断固定 CPU 5-8 | udev `71-fci-irqaffinity.rules` |
 | 实时调度验证 | cyclictest P:99 → max 8 µs |
 
-## 3. Prerequisites (构建依赖)
+## 3. 构建依赖
 
 - Ubuntu 20.04 + ROS Noetic
 - PREEMPT_RT 内核（5.15.92-rt57）
@@ -95,7 +86,7 @@ cat /sys/kernel/realtime  # 1
 - FCI 已启用（Desk → Activate FCI），机器人 IP `192.168.1.2`
 - 用户属于 `realtime` 组，rtprio/memlock 限制生效
 
-## 4. Build (构建)
+## 4. 构建
 
 ```bash
 source /opt/ros/noetic/setup.bash
@@ -106,7 +97,7 @@ source devel/setup.bash
 
 > `.bashrc` 已自动 source catkin 工作区，新终端无需手动 source。
 
-## 5. Tools (工具)
+## 5. 工具
 
 | Tool | Purpose |
 |------|---------|
@@ -136,7 +127,7 @@ rosrun panda_rt_tools recover 192.168.1.2
 # rosrun panda_rt_tools rt_loop_test 192.168.1.2
 ```
 
-Or via launch files (same parameters as ROS params):
+或通过文件操作:
 
 ```bash
 roslaunch panda_rt_tools slow_move.launch robot_ip:=192.168.1.2 joint:=0 angle_deg:=5 speed_deg_s:=4
@@ -145,17 +136,12 @@ roslaunch panda_rt_tools recover.launch robot_ip:=192.168.1.2
 roslaunch panda_rt_tools read_state.launch robot_ip:=192.168.1.2
 ```
 
-## 7. Safety (安全)
+## 7. 安全
 
-- Always keep the emergency stop within reach.
-- Start with small angles and low speeds.
-- If the shared library is not found at runtime, ensure
-  `LD_LIBRARY_PATH` includes `/opt/ros/noetic/lib/x86_64-linux-gnu`.
-- Do **not** run `modprobe nvidia` while a graphical session is active
-  (may freeze the display). Reboot to load the driver instead.
+- 运动流程保持急停按钮可随时被按下。
+- 推荐以低速度启动。
 
-## 8. Realtime notes (实时说明)
+## 8. 实时说明
 
-The tools set `SCHED_FIFO` priority 90 and lock memory via `mlockall`.
-The realtime group limits must be active for this to succeed
-(`ulimit -r` should report 99).
+这些工具会采用 SCHED_FIFO（先进先出的实时调度策略），实时优先级设置为 90，并通过 mlockall 锁定内存。
+要成功执行这些操作，必须让 realtime 用户组的资源限制配置生效（运行 ulimit -r 时，应该显示 99）。

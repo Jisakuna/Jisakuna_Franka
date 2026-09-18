@@ -152,7 +152,7 @@ rosrun panda_rt_tools recover 192.168.1.2
 
 对应 launch 文件为 `slow_move.launch`、`reset_home.launch`、`recover.launch`，参数通过 launch 的 `args` 传入可执行程序。
 
-## 实时配置与当前限制
+## 实时配置
 
 程序设置 `SCHED_FIFO` 优先级 90，并调用 `mlockall`。控制主机需具备 PREEMPT_RT 内核、 `rtprio` / `memlock` 权限和稳定的 FCI 有线连接。
 

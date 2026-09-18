@@ -4,13 +4,9 @@
 
 Real-time control utilities for the **Franka Emika Panda** using `libfranka 0.9.2`.
 
-> These hardware, network, user, and system settings describe the original development host. They are environment records, not an installation script or results revalidated for this release. For a fresh setup, see the [repository README](../../../README.md). Joint indices are 0–6.
->
-> `rt_loop_test` does not currently terminate automatically as intended, and zero additional torque does not guarantee a fixed pose. Read [Real-time configuration and current limitations](../../../README.md#real-time-configuration-and-current-limitations) before using motion, recovery, or diagnostic tools.
-
 ## 1. Hardware
 
-The original environment notes record development and validation on this control host:
+The original environment has been noted record development and validation on this control host:
 
 | Component | Model |
 | --- | --- |
@@ -23,18 +19,16 @@ The original environment notes record development and validation on this control
 | Onboard NIC | Intel I219-LM (not used for FCI) |
 | Wireless | USB adapter `wlx90de806bb0f6` (general network access, separate from FCI) |
 
-FCI traffic uses the dedicated Intel I210 interface `enp4s0`, physically separate from the wireless and onboard interfaces to reduce interference with real-time communication.
-
 ## 2. Software environment
 
 | Component | Recorded version / configuration |
 | --- | --- |
 | Operating system | Ubuntu 20.04.6 LTS (Focal Fossa) |
-| Kernel | `5.15.92-rt57` (PREEMPT_RT; `/sys/kernel/realtime` = 1) |
-| ROS | Noetic (`/opt/ros/noetic`) |
-| libfranka | **0.9.2**; confirm compatibility with the actual Panda firmware |
+| Kernel | `5.15.92-rt57` |
+| ROS | Noetic |
+| libfranka | **0.9.2** |
 | franka_ros | 0.10.1 |
-| NVIDIA driver | 525.85.05, built for the RT kernel |
+| NVIDIA driver | 525.85.05 |
 | Compiler | GCC / G++ 9.4.0; CMake ≥ 3.16 |
 | Dependencies | Eigen3, Poco, Threads |
 
@@ -45,12 +39,9 @@ uname -a                 # Recorded kernel: 5.15.92-rt57, PREEMPT_RT
 cat /sys/kernel/realtime # Expected: 1
 ```
 
-- Built from `linux-5.15.92` with `patch-5.15.92-rt57` and `CONFIG_PREEMPT_RT=y`.
-- Installed through the `linux-image-5.15.92-rt57` and `linux-headers-5.15.92-rt57` Debian packages.
-
 ### 2.2 Real-time permissions
 
-On the original host, user `jia` belonged to the `realtime` group and `/etc/security/limits.conf` contained:
+On the host, the user must belonged to the `realtime` group and `/etc/security/limits.conf` contained:
 
 ```text
 @realtime soft rtprio 99
@@ -61,13 +52,12 @@ On the original host, user `jia` belonged to the `realtime` group and `/etc/secu
 @realtime hard memlock 102400
 ```
 
-`ulimit -r` should report `99` in that configuration. If group or limit changes are not active in a session, log out and sign in again.
+`ulimit -r` should report `99` in that configuration. 
 
-### 2.3 FCI network (NetworkManager connection `robot-link`)
+### 2.3 FCI network 
 
 | Setting | Recorded value |
 | --- | --- |
-| Interface | `enp4s0` |
 | Host IP | `192.168.1.1/24` (static) |
 | Robot IP | `192.168.1.2` |
 | MTU | 1500 |
@@ -96,7 +86,7 @@ These host service and udev file names are references to the original setup; thi
 
 ## 4. Build
 
-Follow the [root build instructions](../../../README.md#build-the-c-tools) to initialize a fresh workspace and install libfranka. From the repository root:
+To initialize a fresh workspace and install libfranka. From the repository root:
 
 ```bash
 source /opt/ros/noetic/setup.bash
@@ -105,7 +95,7 @@ catkin_make -DCMAKE_BUILD_TYPE=Release --only-pkg-with-deps panda_rt_tools
 source devel/setup.bash
 ```
 
-The original host sourced its workspace through `.bashrc`. On another machine, source ROS and the workspace explicitly in each new terminal unless you have configured that behavior yourself.
+The original host sourced its workspace through `.bashrc`. 
 
 ## 5. Tools
 
@@ -159,4 +149,4 @@ The tools attempt to set `SCHED_FIFO` priority 90 and lock memory with `mlockall
 
 ## License
 
-Apache License 2.0. See the repository [LICENSE](../../../LICENSE) and [NOTICE](../../../NOTICE).
+Apache License 2.0.

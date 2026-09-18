@@ -152,7 +152,7 @@ rosrun panda_rt_tools recover 192.168.1.2
 
 The corresponding launch files are `slow_move.launch`, `reset_home.launch`, and `recover.launch`. Parameters are passed to the executables via `args` in the launch files.
 
-## Real-Time Configuration and Current Limitations
+## Real-Time Configuration
 
 The programs set `SCHED_FIFO` priority to 90 and call `mlockall`. The control host must have a PREEMPT_RT kernel, appropriate `rtprio` / `memlock` permissions, and a stable wired FCI connection.
 
